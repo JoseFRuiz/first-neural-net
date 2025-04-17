@@ -76,6 +76,32 @@ docker run --rm -p 8888:8888 my-notebook
 - `--rm` automatically removes the container when stopped.
 - `-p 8888:8888` maps container port 8888 to localhost:8888.
 
+## Mounting Local Directories (Optional)
+
+You have two main options to keep container and local notebooks in sync:
+
+1. **Use a Docker volume mount** (bi‑directional sync):
+
+   ```bash
+   docker run --rm -p 8888:8888 \
+     -v "$(pwd)/notebooks:/home/jovyan/work:rw" \
+     my-notebook
+   ```
+
+   - Any edits you make in Jupyter Lab (inside the container) will immediately appear in your local `notebooks/` folder.
+   - Likewise, changes in your local folder show up live in the container.
+
+2. **Copy files manually** (if you didn’t mount at startup):
+
+   a. Find your running container’s ID or name:
+   ```bash
+   docker ps
+   ```
+
+   b. Copy updated notebooks back to your host:
+   ```bash
+   docker cp <container_id>:/home/jovyan/work/<your-notebook>.ipynb ./notebooks/
+   ```
 
 ## Using Jupyter Lab
 
@@ -110,34 +136,6 @@ If your notebooks require additional Python packages:
    ```bash
    docker build -t my-notebook .
    ```
-
-## Mounting Local Directories (Optional)
-
-You have two main options to keep container and local notebooks in sync:
-
-1. **Use a Docker volume mount** (bi‑directional sync):
-
-   ```bash
-   docker run --rm -p 8888:8888 \
-     -v "$(pwd)/notebooks:/home/jovyan/work:rw" \
-     my-notebook
-   ```
-
-   - Any edits you make in Jupyter Lab (inside the container) will immediately appear in your local `notebooks/` folder.
-   - Likewise, changes in your local folder show up live in the container.
-
-2. **Copy files manually** (if you didn’t mount at startup):
-
-   a. Find your running container’s ID or name:
-   ```bash
-   docker ps
-   ```
-
-   b. Copy updated notebooks back to your host:
-   ```bash
-   docker cp <container_id>:/home/jovyan/work/<your-notebook>.ipynb ./notebooks/
-   ```
-
 
 ## Advanced Configuration
 
