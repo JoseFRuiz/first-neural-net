@@ -108,9 +108,8 @@ If your notebooks require additional Python packages:
    ```
 3. Rebuild the image:
    ```bash
-docker build -t my-notebook .
-```
-
+   docker build -t my-notebook .
+   ```
 
 ## Mounting Local Directories (Optional)
 
