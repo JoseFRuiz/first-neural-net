@@ -113,15 +113,30 @@ If your notebooks require additional Python packages:
 
 ## Mounting Local Directories (Optional)
 
-Rather than rebuilding for every change, you can mount your local `notebooks/`:
+You have two main options to keep container and local notebooks in sync:
 
-```bash
-docker run --rm -p 8888:8888 \
-  -v "$(pwd)/notebooks:/home/jovyan/work" \
-  my-notebook
-```
+1. **Use a Docker volume mount** (bi‑directional sync):
 
-- Changes in your local `notebooks/` folder will instantly reflect in the container.
+   ```bash
+   docker run --rm -p 8888:8888 \
+     -v "$(pwd)/notebooks:/home/jovyan/work:rw" \
+     my-notebook
+   ```
+
+   - Any edits you make in Jupyter Lab (inside the container) will immediately appear in your local `notebooks/` folder.
+   - Likewise, changes in your local folder show up live in the container.
+
+2. **Copy files manually** (if you didn’t mount at startup):
+
+   a. Find your running container’s ID or name:
+   ```bash
+   docker ps
+   ```
+
+   b. Copy updated notebooks back to your host:
+   ```bash
+   docker cp <container_id>:/home/jovyan/work/<your-notebook>.ipynb ./notebooks/
+   ```
 
 
 ## Advanced Configuration

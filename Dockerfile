@@ -1,22 +1,28 @@
 # Use the official minimal Jupyter base image
 FROM jupyter/base-notebook:latest
 
-# Switch to root to install any extra OS packages if needed
+# Switch to root to install any OS packages (if needed)
 USER root
-# (Optional) e.g., RUN apt-get update && apt-get install -y git
+# e.g., RUN apt-get update && apt-get install -y git
 
-# Switch back to jovyan and install Python deps
+# Copy notebooks and set correct ownership for jovyan
+COPY --chown=1000:100 notebooks/ /home/jovyan/work/
+
+# Switch back to the default non‑root user
 USER $NB_UID
-COPY requirements.txt /tmp/
+
+# Install Python dependencies
+COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Copy your notebooks into the container
-COPY notebooks/ /home/jovyan/work/
-
+# Make sure we're in the working directory
 WORKDIR /home/jovyan/work
 
-# Expose Jupyter port
+# Expose Jupyter Lab port
 EXPOSE 8888
 
-# Start JupyterLab without a token
-CMD ["start.sh", "jupyter", "lab", "--LabApp.token=''", "--LabApp.allow_origin='*'", "--LabApp.ip=0.0.0.0"]
+# Launch Jupyter Lab without a token on all interfaces
+CMD ["start.sh", "jupyter", "lab", \
+     "--LabApp.token=''", \
+     "--LabApp.allow_origin='*'", \
+     "--LabApp.ip=0.0.0.0"]
