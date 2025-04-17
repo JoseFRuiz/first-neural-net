@@ -1,4 +1,4 @@
-# My Notebook Project
+# Building your first neural network in python
 
 This repository provides a Docker‑packaged Jupyter Lab environment for developing and sharing Jupyter notebooks with minimal setup. Anyone can clone this repo, build the Docker image, and launch a ready‑to‑use Jupyter Lab server.
 
