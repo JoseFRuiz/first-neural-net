@@ -76,6 +76,8 @@ docker run --rm -p 8888:8888 my-notebook
 - `--rm` automatically removes the container when stopped.
 - `-p 8888:8888` maps container port 8888 to localhost:8888.
 
+- **Note:** This command does _not_ mount your local `notebooks/` directory—changes made inside the container will _not_ be saved to your host.
+
 ## Mounting Local Directories (Optional)
 
 You have two main options to keep container and local notebooks in sync:
