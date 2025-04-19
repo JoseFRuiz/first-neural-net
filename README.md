@@ -25,8 +25,7 @@ first-neural-net/
 │   ├── A_forward_propagation_exercise.py # Exercise implementation
 │   └── exercise_validator.py  # Exercise validation utilities
 ├── tests/               # Unit tests
-│   ├── test_neural_network.py  # Tests for neural network implementation
-│   └── conftest.py     # Test fixtures and configuration
+│   └── test_A_forward_propagation_exercise.py  # Tests for A_forward_propagation_exercise.py implementation
 └── README.md            # This file
 ```
 
@@ -108,7 +107,7 @@ The `exercise_validator.py` module provides functions to validate your solutions
    cd /home/jovyan/work
    
    # Run the tests
-   pytest tests/test_neural_network.py -v
+   pytest tests/test_A_forward_propagation_exercise.py -v
    ```
    
    The tests will verify:
