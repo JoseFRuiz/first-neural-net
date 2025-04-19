@@ -99,7 +99,7 @@ The `exercise_validator.py` module provides functions to validate your solutions
    ```
 
 2. **Using pytest**:
-   Run the tests from within the Docker container:
+   Complete the methods in `A_forward_propagation_exercise.py`. Then run the tests from within the Docker container:
    ```bash
    # Start the container with an interactive shell
    docker run -it --rm -v "$(pwd):/home/jovyan/work" neural-net /bin/bash
@@ -119,14 +119,6 @@ The `exercise_validator.py` module provides functions to validate your solutions
    - Complete forward pass through the network
    - Specific values from the example in the notebook
 
-✅ **Exercise**: Implement the methods in `A_forward_propagation_exercise.py` so that all pytest tests pass. The implementation should include:
-- Correct initialization of weights and biases
-- ReLU activation function
-- Softmax activation function
-- Linear forward propagation
-- Complete forward pass through the network
-
-Both methods will help ensure your implementation is correct and matches the expected behavior.
 
 ## Customizing Dependencies
 
