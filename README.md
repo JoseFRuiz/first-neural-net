@@ -1,39 +1,30 @@
-# Building your first neural network in Python
+# Building Your First Neural Network in Python
 
-This repository provides a Docker‑packaged Jupyter Lab environment for developing and sharing Jupyter notebooks with minimal setup. Anyone can clone this repo, build the Docker image, and launch a ready‑to‑use Jupyter Lab server.
-
----
+This repository provides a hands-on introduction to implementing neural networks from scratch in Python. It includes Jupyter notebooks with detailed explanations and exercises to help you understand the fundamentals of neural networks.
 
 ## Table of Contents
 
 1. [Repository Structure](#repository-structure)
 2. [Prerequisites](#prerequisites)
 3. [Installation & Setup](#installation--setup)
-   - [Clone the Repository](#clone-the-repository)
-   - [Build the Docker Image](#build-the-docker-image)
-   - [Run the Docker Container](#run-the-docker-container)
-4. [Using Jupyter Lab](#using-jupyter-lab)
-5. [Working with Notebooks](#working-with-notebooks)
+4. [Notebooks](#notebooks)
+5. [Exercise Validation](#exercise-validation)
 6. [Customizing Dependencies](#customizing-dependencies)
-7. [Mounting Local Directories (Optional)](#mounting-local-directories-optional)
-8. [Advanced Configuration](#advanced-configuration)
-9. [Troubleshooting](#troubleshooting)
-10. [Contributing](#contributing)
-11. [License](#license)
-
----
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ## Repository Structure
 
 ```bash
-my-notebook-project/
+first-neural-net/
 ├── Dockerfile           # Defines the Docker image
 ├── requirements.txt     # Python dependencies
-├── notebooks/           # Your Jupyter notebooks go here
-│   └── example.ipynb
+├── notebooks/           # Jupyter notebooks
+│   ├── A_forward_propagation.ipynb  # Forward propagation implementation
+│   ├── utils.py         # Utility functions for visualization
+│   └── exercise_validator.py  # Exercise validation utilities
 └── README.md            # This file
 ```
-
 
 ## Prerequisites
 
@@ -48,122 +39,74 @@ my-notebook-project/
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/my-notebook-project.git
-cd my-notebook-project
+git clone https://github.com/<your-username>/first-neural-net.git
+cd first-neural-net
 ```
-
 
 ### Build the Docker Image
 
 From within the project root:
 
 ```bash
-docker build -t my-notebook .
+docker build -t neural-net .
 ```
 
-- `-t my-notebook` tags the image as `my-notebook`.
-- You can replace `my-notebook` with any name you prefer.
+- `-t neural-net` tags the image as `neural-net`.
+- You can replace `neural-net` with any name you prefer.
 
 
 ### Run the Docker Container
 
-To start Jupyter Lab on port 8888:
+To start Jupyter Lab on port 8888 with volume mounting for persistent changes:
 
 ```bash
-docker run --rm -p 8888:8888 my-notebook
+docker run --rm -p 8888:8888 \
+  -v "$(pwd)/notebooks:/home/jovyan/work:rw" \
+  neural-net
 ```
 
-- `--rm` automatically removes the container when stopped.
-- `-p 8888:8888` maps container port 8888 to localhost:8888.
+## Notebooks
 
-- **Note:** This command does _not_ mount your local `notebooks/` directory—changes made inside the container will _not_ be saved to your host.
+The repository contains the following notebooks:
 
-## Mounting Local Directories (Optional)
+1. **A_forward_propagation.ipynb**
+   - Implements forward propagation through a simple neural network
+   - Covers key concepts: linear transformations, ReLU activation, and softmax
+   - Includes hands-on exercises with validation
 
-You have two main options to keep container and local notebooks in sync:
+## Exercise Validation
 
-1. **Use a Docker volume mount** (bi‑directional sync):
+The `exercise_validator.py` module provides functions to validate your solutions to exercises. For example:
 
-   ```bash
-   docker run --rm -p 8888:8888 \
-     -v "$(pwd)/notebooks:/home/jovyan/work:rw" \
-     my-notebook
-   ```
+```python
+from exercise_validator import validate_nn_architecture
 
-   - Any edits you make in Jupyter Lab (inside the container) will immediately appear in your local `notebooks/` folder.
-   - Likewise, changes in your local folder show up live in the container.
-
-2. **Copy files manually** (if you didn’t mount at startup):
-
-   a. Find your running container’s ID or name:
-   ```bash
-   docker ps
-   ```
-
-   b. Copy updated notebooks back to your host:
-   ```bash
-   docker cp <container_id>:/home/jovyan/work/<your-notebook>.ipynb ./notebooks/
-   ```
-
-## Using Jupyter Lab
-
-1. After running the container, open your browser to:
-
-   ```text
-   http://localhost:8888
-   ```
-
-2. No token or password is required (configured in the Dockerfile).
-3. Explore the file browser — you should see the `example.ipynb` notebook in `work/`.
-
-
-## Working with Notebooks
-
-- Place any new or existing `.ipynb` files into the `notebooks/` directory.
-- Rebuild the Docker image (or mount a volume) to have them appear in Jupyter Lab.
-
+# Validate neural network architecture
+is_valid, message = validate_nn_architecture([3, 5, 5, 2])
+print(message)
+```
 
 ## Customizing Dependencies
 
-If your notebooks require additional Python packages:
+The project uses the following main dependencies:
+- numpy: For numerical computations
+- matplotlib: For visualization
+- jupyterlab: For the development environment
 
-1. Open `requirements.txt`.
-2. Add one package per line, e.g.:
-   ```text
-   numpy
-   pandas
-   matplotlib
-   ```
-3. Rebuild the image:
+To add additional dependencies:
+1. Edit `requirements.txt`
+2. Rebuild the Docker image:
    ```bash
-   docker build -t my-notebook .
+   docker build -t neural-net .
    ```
-
-## Advanced Configuration
-
-- To enable GPU support, switch to a CUDA‑enabled base image (e.g., `jupyter/cuda-notebook`) and install any GPU libraries in the Dockerfile.
-- To set a custom Jupyter Lab password, modify the `CMD` in the Dockerfile:
-  ```dockerfile
-  CMD ["start.sh", "jupyter", "lab", \
-       "--LabApp.password='sha1:...'", \
-       "--LabApp.ip=0.0.0.0"]
-  ```
-
-
-## Troubleshooting
-
-- **Port already in use**: Change the host port (e.g., `-p 9999:8888`) and visit `http://localhost:9999`.
-- **Permission errors on notebooks**: Ensure files in `notebooks/` are readable by UID 1000 (the `jovyan` user).
-- **Docker daemon not running**: Start Docker Desktop or run `sudo systemctl start docker`.
-
 
 ## Contributing
 
-1. Fork this repo.
-2. Create a feature branch: `git checkout -b feature/your-feature`.
-3. Commit your changes and push: `git push origin feature/your-feature`.
-4. Open a Pull Request.
-
+1. Fork this repo
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature`
+5. Open a Pull Request
 
 ## License
 
