@@ -79,3 +79,22 @@ def test_forward(model):
     assert np.isclose(np.sum(output), 1.0, atol=1e-6), "❌ Output probabilities must sum to 1."
     assert np.all(output >= 0), "❌ Output contains negative probabilities."
     print("✅ forward_pass passed!")
+
+def test_batched_forward(model):
+    print("🔍 Testing: batched forward_pass...")
+
+    # Create a batch of 3 input vectors (input_dim = 2)
+    X_batch = np.array([
+        [1.0, 2.0],
+        [0.0, -1.0],
+        [3.5, 0.5]
+    ])
+
+    output = model.forward(X_batch)
+
+    assert isinstance(output, np.ndarray), "❌ Output must be a NumPy array."
+    assert output.shape == (3, 2), f"❌ Expected output shape (3, 2), got {output.shape}"
+    assert np.allclose(np.sum(output, axis=1), 1.0, atol=1e-6), "❌ Each row of output must sum to 1."
+    assert np.all(output >= 0), "❌ Output contains negative probabilities."
+    
+    print("✅ batched forward_pass passed!")

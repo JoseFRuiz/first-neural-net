@@ -80,6 +80,7 @@ The repository contains the following notebooks:
    - Implements forward propagation through a simple neural network
    - Covers key concepts: linear transformations, ReLU activation, and softmax
    - Includes hands-on exercises with validation
+   - 💡 *Bonus section*: Extend the implementation to support batch inputs using class inheritance
 
 ## Exercise Validation
 
