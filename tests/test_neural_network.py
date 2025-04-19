@@ -10,7 +10,7 @@ import os
 # Add the notebooks directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from notebooks.neural_network_exercise import SimpleFCN
+from notebooks.A_forward_propagation_exercise import SimpleFCN
 
 def test_initialization():
     """Test that the network initializes with correct weights and biases."""
