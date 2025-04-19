@@ -22,7 +22,7 @@ first-neural-net/
 ├── notebooks/           # Jupyter notebooks
 │   ├── A_forward_propagation.ipynb  # Forward propagation implementation
 │   ├── utils.py         # Utility functions for visualization
-│   ├── neural_network.py # Neural network implementation
+│   ├── neural_network_exercise.py # Neural network implementation exercise
 │   └── exercise_validator.py  # Exercise validation utilities
 ├── tests/               # Unit tests
 │   ├── test_neural_network.py  # Tests for neural network implementation
@@ -118,6 +118,13 @@ The `exercise_validator.py` module provides functions to validate your solutions
    - Linear forward propagation
    - Complete forward pass through the network
    - Specific values from the example in the notebook
+
+✅ **Exercise**: Implement the methods in `neural_network_exercise.py` so that all pytest tests pass. The implementation should include:
+- Correct initialization of weights and biases
+- ReLU activation function
+- Softmax activation function
+- Linear forward propagation
+- Complete forward pass through the network
 
 Both methods will help ensure your implementation is correct and matches the expected behavior.
 
