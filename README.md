@@ -22,7 +22,11 @@ first-neural-net/
 ├── notebooks/           # Jupyter notebooks
 │   ├── A_forward_propagation.ipynb  # Forward propagation implementation
 │   ├── utils.py         # Utility functions for visualization
+│   ├── neural_network.py # Neural network implementation
 │   └── exercise_validator.py  # Exercise validation utilities
+├── tests/               # Unit tests
+│   ├── test_neural_network.py  # Tests for neural network implementation
+│   └── conftest.py     # Test fixtures and configuration
 └── README.md            # This file
 ```
 
@@ -80,15 +84,42 @@ The repository contains the following notebooks:
 
 ## Exercise Validation
 
-The `exercise_validator.py` module provides functions to validate your solutions to exercises. For example:
+The `exercise_validator.py` module provides functions to validate your solutions to exercises. You can evaluate your implementation in two ways:
 
-```python
-from exercise_validator import validate_nn_architecture
+1. **Using the Notebook**:
+   Run the validation cells in `A_forward_propagation.ipynb` which will test your implementation using the built-in validator:
+   ```python
+   from exercise_validator import test_linear_forward, test_relu, test_softmax, test_forward
+   
+   # Run all tests
+   test_linear_forward(model)
+   test_relu(model)
+   test_softmax(model)
+   test_forward(model)
+   ```
 
-# Validate neural network architecture
-is_valid, message = validate_nn_architecture([3, 5, 5, 2])
-print(message)
-```
+2. **Using pytest**:
+   Run the tests from within the Docker container:
+   ```bash
+   # Start the container with an interactive shell
+   docker run -it --rm -v "$(pwd):/home/jovyan/work" neural-net /bin/bash
+   
+   # Navigate to the project directory
+   cd /home/jovyan/work
+   
+   # Run the tests
+   pytest tests/test_neural_network.py -v
+   ```
+   
+   The tests will verify:
+   - Correct initialization of weights and biases
+   - ReLU activation function behavior
+   - Softmax activation function properties
+   - Linear forward propagation
+   - Complete forward pass through the network
+   - Specific values from the example in the notebook
+
+Both methods will help ensure your implementation is correct and matches the expected behavior.
 
 ## Customizing Dependencies
 
