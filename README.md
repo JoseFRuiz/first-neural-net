@@ -54,14 +54,20 @@ docker build -t neural-net .
 - `-t neural-net` tags the image as `neural-net`.
 - You can replace `neural-net` with any name you prefer.
 
-
 ### Run the Docker Container
 
-To start Jupyter Lab on port 8888 with volume mounting for persistent changes:
+To start Jupyter Lab on port 8888 with volume mounting for persistent changes:
 
 ```bash
 docker run --rm -p 8888:8888 -v "$(pwd)/notebooks:/home/jovyan/work:rw" neural-net
 ```
+
+After running this command, open your web browser and navigate to:
+```
+http://localhost:8888
+```
+
+This will open Jupyter Lab, where you can work with the notebooks and run your code.
 
 ## Notebooks
 
