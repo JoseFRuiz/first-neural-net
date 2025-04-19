@@ -43,7 +43,7 @@ first-neural-net/
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/first-neural-net.git
+git clone https://github.com/JoseFRuiz/first-neural-net.git
 cd first-neural-net
 ```
 
