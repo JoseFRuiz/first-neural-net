@@ -60,9 +60,7 @@ docker build -t neural-net .
 To start Jupyter Lab on port 8888 with volume mounting for persistent changes:
 
 ```bash
-docker run --rm -p 8888:8888 \
-  -v "$(pwd)/notebooks:/home/jovyan/work:rw" \
-  neural-net
+docker run --rm -p 8888:8888 -v "$(pwd)/notebooks:/home/jovyan/work:rw" neural-net
 ```
 
 ## Notebooks
