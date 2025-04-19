@@ -4,6 +4,12 @@ Tests for the SimpleFCN neural network implementation.
 
 import numpy as np
 import pytest
+import sys
+import os
+
+# Add the notebooks directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from notebooks.neural_network import SimpleFCN
 
 def test_initialization():

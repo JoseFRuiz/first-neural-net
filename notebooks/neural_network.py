@@ -54,16 +54,6 @@ class SimpleFCN:
         y = None # TODO: Output layer softmax activation
         return y
     
-# Create the network
-model = SimpleFCN()
-
-# Define input vector
-x = np.array([1.0, 2.0])
-
-# Run forward pass
-output = model.forward(x)
-print("Output probabilities:", output)
-
 # EXERCISE SOLUTION — NOT VISIBLE TO LEARNERS
 # This cell contains the reference solution and validation.
 # It should be used for instructor/testing purposes only.
